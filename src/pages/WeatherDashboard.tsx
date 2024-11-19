@@ -1,3 +1,5 @@
+import CurrentWeather from "@/components/CurrentWeather";
+import { HourlyTemperature } from "@/components/HourlyTemprature";
 import SkeletonLoading from "@/components/SkeletonLoading";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -94,11 +96,31 @@ const WeatherDashboard = () => {
       {/* fhav */}
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight ">my location</h1>
-        <Button onClick={handleRefresh} disabled={weatherQuery.isFetching || forecastQuery.isFetching} variant={"outline"} size={"icon"}>
-          <RefreshCcw className={`h-4 w-4 ${weatherQuery.isFetching ? "animate-spin" : ""}`}/>
+        <Button
+          onClick={handleRefresh}
+          disabled={weatherQuery.isFetching || forecastQuery.isFetching}
+          variant={"outline"}
+          size={"icon"}
+        >
+          <RefreshCcw
+            className={`h-4 w-4 ${
+              weatherQuery.isFetching ? "animate-spin" : ""
+            }`}
+          />
         </Button>
       </div>
-      {/* current and hourly weather */}
+
+      <div className="grid gap-6">
+        <div className="flex flex-col lg:flex-row gap-4">
+          <CurrentWeather
+            data={weatherQuery.data}
+            locationName={locationName}
+          />
+
+          <HourlyTemperature data={forecastQuery.data} />
+        </div>
+        <div>details and forecast</div>
+      </div>
     </div>
   );
 };
