@@ -9,7 +9,16 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 function App() {
 
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions : {
+      queries : {
+        staleTime : 5 * 60 * 1000, //5min
+        gcTime : 10* 60 * 1000, //10min
+        retry: false,
+        refetchOnWindowFocus : false,
+      }
+    }
+  })
 
   return (
     <QueryClientProvider client={queryClient}>
